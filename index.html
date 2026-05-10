@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIN 150 (921) — Sport and Exercise Psychology</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-mid: #253560;
+    --gold: #c8973a;
+    --gold-light: #e8b86d;
+    --cream: #faf8f4;
+    --warm-white: #ffffff;
+    --text: #1e1e1e;
+    --text-mid: #444;
+    --text-light: #777;
+    --border: #e2ddd6;
+    --accent-bg: #f2ede6;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--navy);
+    border-bottom: 3px solid var(--gold);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 58px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--gold-light);
+    text-decoration: none; letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 0.15rem; list-style: none; }
+  .nav-links a {
+    display: block; padding: 0.35rem 0.8rem;
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: rgba(255,255,255,0.72); text-decoration: none;
+    border-radius: 3px; transition: color 0.2s, background 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); background: rgba(200,151,58,0.12); }
+  .nav-module-btn {
+    background: var(--gold); color: var(--navy) !important;
+    font-weight: 600 !important; border-radius: 4px;
+  }
+  .nav-module-btn:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+  /* HERO */
+  header {
+    background: var(--navy); padding: 5rem 2rem 4.5rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  header::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(200,151,58,0.04) 80px, rgba(200,151,58,0.04) 81px),
+      repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(200,151,58,0.04) 80px, rgba(200,151,58,0.04) 81px);
+  }
+  .hero-inner { position: relative; max-width: 820px; margin: 0 auto; }
+  .hero-label {
+    display: inline-block;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gold);
+    border: 1px solid rgba(200,151,58,0.4);
+    padding: 0.3rem 1rem; border-radius: 2px; margin-bottom: 1.5rem;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 0.6rem;
+  }
+  header h1 span { color: var(--gold-light); }
+  .hero-subtitle {
+    font-size: 1.05rem; color: rgba(255,255,255,0.55);
+    font-family: 'Source Serif 4', serif; font-style: italic;
+    font-weight: 300; margin-bottom: 2.5rem;
+  }
+  .hero-pills {
+    display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: center;
+  }
+  .pill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.78); font-size: 0.82rem;
+    padding: 0.38rem 1rem; border-radius: 100px; letter-spacing: 0.02em;
+  }
+  .pill strong { color: var(--gold-light); font-weight: 600; }
+
+  /* LAND ACKNOWLEDGEMENT BANNER */
+  .land-ack {
+    background: #f7f3ee; border-left: 4px solid var(--gold);
+    padding: 1.1rem 2rem;
+  }
+  .land-ack-inner {
+    max-width: 1000px; margin: 0 auto;
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .land-ack-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .land-ack p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.65; }
+  .land-ack strong { color: var(--navy); }
+
+  /* SECTIONS */
+  section { padding: 4.5rem 2rem; }
+  section:nth-of-type(even) { background: var(--warm-white); }
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+
+  .section-header {
+    display: flex; align-items: baseline; gap: 1rem;
+    margin-bottom: 2.5rem; padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-num {
+    font-family: 'Playfair Display', serif; font-size: 2.8rem;
+    font-weight: 700; color: var(--border); line-height: 1; flex-shrink: 0;
+  }
+  .section-eyebrow {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold); display: block; margin-bottom: 0.15rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem; font-weight: 600; color: var(--navy); line-height: 1.2;
+  }
+
+  /* OVERVIEW CARDS */
+  .info-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem; margin-bottom: 2rem;
+  }
+  .info-card {
+    background: var(--accent-bg);
+    border-left: 3px solid var(--gold);
+    padding: 1.2rem 1.4rem;
+    border-radius: 0 6px 6px 0;
+  }
+  .info-card h3 {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-light); margin-bottom: 0.4rem;
+  }
+  .info-card p { font-size: 0.95rem; color: var(--navy); font-weight: 500; line-height: 1.5; }
+  .info-card a { color: var(--navy); }
+
+  .prose {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.02rem; color: var(--text-mid); line-height: 1.85;
+    max-width: 720px;
+  }
+  .prose + .prose { margin-top: 1rem; }
+
+  .outcomes-list { margin-top: 1.5rem; list-style: none; }
+  .outcomes-list li {
+    padding: 0.65rem 0 0.65rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    position: relative; font-size: 0.95rem; color: var(--text-mid);
+  }
+  .outcomes-list li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--gold); font-weight: 600;
+  }
+
+  /* CONTACTS */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+  .contact-card {
+    background: var(--accent-bg);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.4rem 1.6rem;
+  }
+  .contact-card .role {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .contact-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; color: var(--navy); margin-bottom: 0.2rem;
+  }
+  .contact-card .pronouns {
+    font-size: 0.8rem; color: var(--text-light); margin-bottom: 0.8rem;
+  }
+  .contact-detail { font-size: 0.88rem; color: var(--text-mid); margin-top: 0.35rem; }
+  .contact-detail strong { color: var(--navy); font-weight: 600; }
+  .contact-detail a { color: var(--navy-mid); }
+  .email-box {
+    margin-top: 1.5rem;
+    background: rgba(26,39,68,0.05); border: 1px solid rgba(26,39,68,0.15);
+    border-left: 4px solid var(--navy-mid);
+    border-radius: 0 6px 6px 0; padding: 0.9rem 1.3rem;
+    font-size: 0.87rem; color: var(--text-mid); line-height: 1.65;
+  }
+  .email-box strong { color: var(--navy); }
+
+  /* RUBRIC */
+  .rubric-toggle {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1rem; font-size: 0.8rem; font-weight: 600;
+    color: var(--navy-mid); background: none; border: 1px solid var(--border);
+    border-radius: 4px; padding: 0.35rem 0.8rem; cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .rubric-toggle:hover { background: var(--accent-bg); border-color: var(--navy-mid); }
+  .rubric-toggle .arrow { transition: transform 0.25s; display: inline-block; }
+  .rubric-toggle.open .arrow { transform: rotate(180deg); }
+  .rubric-panel { display: none; margin-top: 1rem; }
+  .rubric-panel.open { display: block; }
+  .rubric-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 0.5rem; }
+  .rubric-table th {
+    background: var(--navy); color: rgba(255,255,255,0.85);
+    padding: 0.6rem 0.8rem; text-align: left; font-size: 0.68rem;
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+  }
+  .rubric-table td { padding: 0.65rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-mid); line-height: 1.55; }
+  .rubric-table tr:last-child td { border-bottom: none; }
+  .rubric-table td:first-child { font-weight: 600; color: var(--navy); width: 20%; white-space: nowrap; }
+  .rubric-table tr:hover td { background: var(--accent-bg); }
+  .rubric-total { margin-top: 0.6rem; font-size: 0.82rem; font-weight: 600; color: var(--navy); text-align: right; }
+
+  /* SCHEDULE TABLE */
+  .schedule-wrap { overflow-x: auto; }
+  .schedule-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  .schedule-table thead th {
+    background: var(--navy); color: rgba(255,255,255,0.85);
+    font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 600; padding: 0.9rem 1.2rem; text-align: left;
+  }
+  .schedule-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  .schedule-table tbody tr:hover { background: var(--accent-bg); }
+  .schedule-table td { padding: 0.9rem 1.2rem; color: var(--text-mid); vertical-align: top; }
+  .schedule-table td:first-child { white-space: nowrap; font-weight: 600; color: var(--text-light); width: 110px; }
+  .schedule-table td:nth-child(2) { white-space: nowrap; font-weight: 600; color: var(--navy); width: 130px; }
+  .tag {
+    display: inline-block; font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.18rem 0.55rem; border-radius: 3px; margin-left: 0.4rem;
+    vertical-align: middle; white-space: nowrap;
+  }
+  .tag-exam { background: #fde8e8; color: #c0392b; }
+  .tag-seminar { background: #e8f0fd; color: #2455a3; }
+  .tag-note { background: #fdf8e8; color: #a07c12; }
+
+  /* ASSESSMENTS */
+  .assess-list { display: flex; flex-direction: column; gap: 1rem; }
+  .assess-card {
+    border: 1px solid var(--border); border-radius: 8px;
+    overflow: hidden; transition: box-shadow 0.2s;
+  }
+  .assess-card:hover { box-shadow: 0 4px 16px rgba(26,39,68,0.08); }
+  .assess-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 1.6rem; background: var(--accent-bg);
+    cursor: pointer; gap: 1rem;
+  }
+  .assess-title-group { flex: 1; }
+  .assess-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 600; color: var(--navy);
+  }
+  .assess-meta { font-size: 0.82rem; color: var(--text-light); margin-top: 0.15rem; }
+  .assess-weight {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700; color: var(--gold);
+    flex-shrink: 0;
+  }
+  .assess-body {
+    padding: 1.3rem 1.6rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem; color: var(--text-mid); line-height: 1.75;
+  }
+  .assess-body p + p { margin-top: 0.6rem; }
+  .assess-body ul { margin: 0.6rem 0 0 1.2rem; }
+  .assess-body li { margin-bottom: 0.3rem; }
+  .assess-body .policy-note {
+    margin-top: 1rem; padding: 0.8rem 1.1rem;
+    background: rgba(26,39,68,0.04); border-left: 3px solid var(--navy-mid);
+    border-radius: 0 4px 4px 0; font-size: 0.84rem;
+  }
+
+  /* GRADE SUMMARY */
+  .grade-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin-bottom: 1.5rem; }
+  .grade-table thead th {
+    background: var(--navy); color: rgba(255,255,255,0.85);
+    font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 600; padding: 0.8rem 1.2rem; text-align: left;
+  }
+  .grade-table tbody tr { border-bottom: 1px solid var(--border); }
+  .grade-table td { padding: 0.8rem 1.2rem; color: var(--text-mid); }
+  .grade-table td:nth-child(2) { font-weight: 700; color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.1rem; }
+  .grade-table tfoot td {
+    font-weight: 700; color: var(--navy); padding: 0.9rem 1.2rem;
+    background: var(--accent-bg); border-top: 2px solid var(--border);
+  }
+
+  /* IMPORTANT DATES */
+  .dates-list { display: flex; flex-direction: column; gap: 0; }
+  .date-row {
+    display: grid; grid-template-columns: 160px 1fr;
+    gap: 1rem; align-items: start;
+    padding: 0.8rem 0; border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+  }
+  .date-row:first-child { border-top: 1px solid var(--border); }
+  .date-row .date { font-weight: 600; color: var(--navy); }
+  .date-row .event { color: var(--text-mid); }
+
+  /* RESOURCES */
+  .resources-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.1rem;
+  }
+  .resource-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.3rem 1.5rem; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    display: block;
+  }
+  .resource-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(26,39,68,0.1);
+    border-color: var(--gold);
+  }
+  .resource-icon { font-size: 1.5rem; margin-bottom: 0.7rem; display: block; }
+  .resource-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--navy); margin-bottom: 0.25rem;
+  }
+  .resource-card p { font-size: 1rem; color: var(--text-light); line-height: 1.5; }
+
+  /* POLICIES */
+  .policy-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .policy-card {
+    padding: 1.2rem 1.6rem;
+    background: var(--accent-bg); border-radius: 8px;
+    border-left: 3px solid var(--gold);
+  }
+  .policy-card h3 {
+    font-size: 0.88rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+  .policy-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.7; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy); padding: 2.5rem 2rem;
+    text-align: center; border-top: 3px solid var(--gold);
+  }
+  footer p { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-bottom: 0.3rem; }
+  footer a { color: var(--gold-light); text-decoration: none; }
+
+  /* FADE IN */
+  .fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 680px) {
+    .nav-links { display: none; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .date-row { grid-template-columns: 1fr; gap: 0.2rem; }
+    .date-row .date { font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">KIN 150 · Sport & Exercise Psychology</a>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#assessments">Assessments</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="https://ubcca-my.sharepoint.com/:w:/r/personal/kayj98_student_ubc_ca/Documents/KIN%20150%20-%20Lecture%20Notes/Syllabus/KIN150_Syllabus_2026_SummerT1.docx?d=we86391ab4c934b638ba27c3e88f5de65&csf=1&web=1&e=KkhReA" target="_blank">Syllabus</a></li>
+      <li><a href="modules.html" class="nav-module-btn">Modules</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="hero-inner">
+    <div class="hero-label">University of British Columbia · School of Kinesiology</div>
+    <h1>KIN 150 (921)<br><span>Sport and Exercise Psychology</span></h1>
+    <p class="hero-subtitle">A broad introduction to the psychology of physical activity and human performance</p>
+    <div class="hero-pills">
+      <span class="pill"><strong>Term</strong> Summer T1, 2026</span>
+      <span class="pill"><strong>Credits</strong> 3</span>
+      <span class="pill"><strong>Format</strong> In-Person · Mon &amp; Wed</span>
+    </div>
+    <div style="margin-top:2rem;">
+      <a href="https://ubcca-my.sharepoint.com/:w:/r/personal/kayj98_student_ubc_ca/Documents/KIN%20150%20-%20Lecture%20Notes/Syllabus/KIN150_Syllabus_2026_SummerT1.docx?d=we86391ab4c934b638ba27c3e88f5de65&csf=1&web=1&e=KkhReA" target="_blank" style="display:inline-flex; align-items:center; gap:0.6rem; background:var(--gold); color:var(--navy); font-weight:700; font-size:0.88rem; letter-spacing:0.04em; padding:0.7rem 1.5rem; border-radius:5px; text-decoration:none; transition:background 0.2s;">
+        📄 View Syllabus (UBC Login Required)
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- LAND ACK -->
+<div class="land-ack">
+  <div class="land-ack-inner">
+    <span class="land-ack-icon">🏔️</span>
+    <p><strong>Land Acknowledgement:</strong> UBC's Point Grey Campus is located on the traditional, ancestral, and unceded territory of the <strong>xwməθkwəy̓əm (Musqueam) people</strong>. This course invites you to think critically about how sport and exercise psychology has been shaped by dominant ways of knowing, and whose perspectives are represented or missing.</p>
+  </div>
+</div>
+
+<!-- SECTION 1: OVERVIEW & CONTACTS -->
+<section id="overview">
+  <div class="section-inner fade-in">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div>
+        <span class="section-eyebrow">Course Information</span>
+        <div class="section-title">Overview &amp; Contacts</div>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card"><h3>Course Code</h3><p>KIN 150 (921)</p></div>
+      <div class="info-card"><h3>Location</h3><p>Gateway Health Building (GWHB), Room 1011</p></div>
+      <div class="info-card"><h3>Class Times</h3><p>Mondays &amp; Wednesdays<br>2:00 PM – 5:00 PM</p></div>
+      <div class="info-card"><h3>Term Dates</h3><p>Summer T1, 2026 — see syllabus for exact dates</p></div>
+    </div>
+
+    <p class="prose">This course introduces students to fundamental concepts and theories within sport and exercise psychology. The goal is to provide a broad overview of major topics within the area of physical activity psychology — covering human cognition, emotion, and behaviour within physical activity contexts.</p>
+    <p class="prose">Knowledge of sport and exercise psychology theory and applications will assist students in understanding underlying psychological processes as they relate to physical activity performance and participation. These skills are relevant to many kinesiology and health-related professional practices.</p>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--navy); margin: 2rem 0 1rem;">Learning Objectives</h3>
+    <p style="font-size:0.88rem; color:var(--text-light); margin-bottom:0.75rem;">By the end of this course, students will be able to:</p>
+    <ul class="outcomes-list">
+      <li>Describe sport and exercise psychology theories and constructs and discuss their relevance to physical activity contexts.</li>
+      <li>Apply theoretical perspectives and constructs to case studies and provide recommendations for intervention and applied practice.</li>
+      <li>Critically assess sport and exercise psychology theory, constructs, and knowledge application.</li>
+    </ul>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--navy); margin: 2rem 0 1rem;">Instructor &amp; TA</h3>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="role">Instructor</div>
+        <h3>Kay Anderson, MSc</h3>
+        <div class="pronouns">They/Them</div>
+        <div class="contact-detail"><strong>Email:</strong> <a href="mailto:kay.anderson@ubc.ca">kay.anderson@ubc.ca</a></div>
+        <div class="contact-detail"><strong>Drop-in Office Hours:</strong> Tuesdays 10:00–11:00 AM<br>Gateway Room 6203</div>
+        <div class="contact-detail"><strong>Meetings:</strong> In-person or Zoom — email to schedule</div>
+      </div>
+      <div class="contact-card">
+        <div class="role">Teaching Assistant</div>
+        <h3>Brooklynn Ratzlaff, MSc</h3>
+        <div class="pronouns">She/Her</div>
+        <div class="contact-detail"><strong>Email:</strong> <a href="mailto:brooklynn.ratzlaff@ubc.ca">brooklynn.ratzlaff@ubc.ca</a></div>
+        <div class="contact-detail"><strong>Meetings:</strong> In-person or Zoom — email to schedule</div>
+      </div>
+    </div>
+    <div class="email-box">
+      ✉️ &nbsp;When emailing Kay or Brooklynn, please use <strong>professional email etiquette</strong> and include <strong>KIN 150 in the subject line</strong>. We aim to respond within <strong>48 hours on weekdays</strong> and do not check email on weekends — please keep this in mind around assignment due dates and exams.
+    </div>
+</section>
+
+<!-- SECTION 2: SCHEDULE -->
+<section id="schedule">
+  <div class="section-inner fade-in">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div>
+        <span class="section-eyebrow">Weekly Topics</span>
+        <div class="section-title">Course Schedule</div>
+      </div>
+    </div>
+    <p style="font-family:'Source Serif 4',serif;font-size:1.05rem;color:var(--text-mid);line-height:1.85;margin-bottom:1.5rem;">The full course schedule — including weekly topics, readings, seminar dates, and all exam dates — is available in the course syllabus. Please sign in with your UBC account to access it.</p>
+    <a href="https://ubcca-my.sharepoint.com/:w:/r/personal/kayj98_student_ubc_ca/Documents/KIN%20150%20-%20Lecture%20Notes/Syllabus/KIN150_Syllabus_2026_SummerT1.docx?d=we86391ab4c934b638ba27c3e88f5de65&csf=1&web=1&e=KkhReA" target="_blank" style="display:inline-flex;align-items:center;gap:0.6rem;background:var(--navy);color:#fff;font-weight:600;font-size:0.95rem;padding:0.8rem 1.6rem;border-radius:6px;text-decoration:none;">View Course Syllabus (UBC Login Required)</a>
+  </div>
+</section>
+
+<!-- SECTION 3: ASSESSMENTS -->
+<section id="assessments">
+  <div class="section-inner fade-in">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div>
+        <span class="section-eyebrow">Evaluation</span>
+        <div class="section-title">Assessments &amp; Grading</div>
+      </div>
+    </div>
+
+    <!-- Grade Summary -->
+    <table class="grade-table" style="margin-bottom:2.5rem;">
+      <thead>
+        <tr>
+          <th>Assessment</th>
+          <th>Weight</th>
+          <th>Format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>In-Person Seminars #1 &amp; #2</td>
+          <td>10%</td>
+          <td>In class</td>
+        </tr>
+        <tr>
+          <td>Applied Reflection</td>
+          <td>10%</td>
+          <td>Written submission</td>
+        </tr>
+        <tr>
+          <td>Midterm Exam</td>
+          <td>25%</td>
+          <td>Multiple choice &amp; short answer</td>
+        </tr>
+        <tr>
+          <td>Case Study Exam</td>
+          <td>20%</td>
+          <td>Written in-person</td>
+        </tr>
+        <tr>
+          <td>Final Exam</td>
+          <td>35%</td>
+          <td>Scheduled exam period</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><strong>Total</strong></td>
+          <td><strong>100%</strong></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- Individual Assessments -->
+    <div class="assess-list">
+
+      <!-- SEMINAR -->
+      <div class="assess-card">
+        <div class="assess-header">
+          <div class="assess-title-group">
+            <div class="assess-name">In-Person Seminars (×2)</div>
+            <div class="assess-meta">In class · 5% each · see syllabus for dates</div>
+          </div>
+          <div class="assess-weight">10%</div>
+        </div>
+        <div class="assess-body">
+          <p>Each seminar runs for the first hour of class (2:00–3:00 PM), followed by the regular lecture. Students engage in small-group, seminar-style discussions applying course concepts to sport and physical activity contexts — no written preparation is required, but you should come having completed the assigned readings and ready to contribute.</p>
+          <p><strong>Seminar #1:</strong> Topic — The Theory of Planned Behaviour (Ch. 3). Small groups explore what the TPB explains well about physical activity participation and where it falls short, including whose barriers it may struggle to see.</p>
+          <p><strong>Seminar #2:</strong> Topic — Physical Activity Across the Lifespan (Ch. 10 &amp; 12). Groups explore how frameworks for youth and aging compare, and what assumptions about the body and participation are built into each.</p>
+          <p><strong>Grading (completion-based):</strong> Each seminar requires (1) attendance confirmed via sign-in sheet, and (2) a brief Canvas reflection submitted by 11:59 PM on the day of the seminar — responding to one prompt: what did you find particularly engaging or challenging? Both must be completed to receive marks.</p>
+          <div class="policy-note">If a seminar is missed due to a documented medical issue or personal emergency, the 5% will be transferred to the final exam, consistent with the academic concession policy.</div>
+        </div>
+      </div>
+
+      <!-- APPLIED REFLECTION -->
+      <div class="assess-card">
+        <div class="assess-header">
+          <div class="assess-title-group">
+            <div class="assess-name">Applied Reflection</div>
+            <div class="assess-meta">Canvas submission (Turnitin-enabled) · 500–700 words · see syllabus for due date</div>
+          </div>
+          <div class="assess-weight">10%</div>
+        </div>
+        <div class="assess-body">
+          <p>Select one concept or theory from <strong>Chapters 2–4</strong> (Personality, Motivation &amp; Behavioural Change, or Stress, Emotion &amp; Coping) and apply it to a real sport, exercise, or movement experience — either your own or one you have observed.</p>
+          <p>The goal is not to write a perfect academic essay — it is to show that you understand a concept well enough to recognize it in the real world and to think critically about what it does and doesn't explain. Write in your own voice.</p>
+          <p><strong>Your paper should:</strong></p>
+          <ul>
+            <li>Clearly identify and accurately describe the theory or concept in your own words</li>
+            <li>Connect it to a specific, real example from sport, exercise, or movement</li>
+            <li>Reflect on what the theory explains well and where it falls short or feels incomplete</li>
+            <li>Draw on at least one source beyond the textbook (e.g., a peer-reviewed article)</li>
+          </ul>
+          <p style="margin-top:0.75rem;"><strong>Example directions (illustrative, not exhaustive):</strong> A personality trait or construct and how it shows up in sport · A motivational theory applied to your own physical activity relationship · A coping strategy applied to a stressor you've encountered in sport or exercise.</p>
+          <div class="policy-note">⚠️ <strong>AI Use Policy:</strong> Generative AI is <em>not permitted</em> at any stage — including brainstorming, outlining, or drafting. All submissions are reviewed through Turnitin. Any use of AI will be treated as academic misconduct per UBC policy.</div>
+          <button class="rubric-toggle" onclick="toggleRubric(this)">📋 View Rubric <span class="arrow">▾</span></button>
+          <div class="rubric-panel">
+            <table class="rubric-table">
+              <thead><tr><th>Criterion</th><th>Complete — Full marks</th><th>Partial — Half marks</th><th>Incomplete — No marks</th></tr></thead>
+              <tbody>
+                <tr><td>Conceptual Accuracy (3 marks)</td><td>Theory correctly identified and accurately described in student's own words</td><td>Theory identified but description contains minor errors or is too vague</td><td>Theory misidentified, significantly inaccurate, or absent</td></tr>
+                <tr><td>Application (3 marks)</td><td>Concept connected to a specific, relevant real-world example with clear explanation of the link</td><td>Example present but connection to concept is surface-level or underdeveloped</td><td>No real example provided, or connection is unclear</td></tr>
+                <tr><td>Critical Reflection (2 marks)</td><td>Student thoughtfully considers what the theory explains well and where it falls short or feels incomplete</td><td>Some reflection present but remains general or one-sided</td><td>No critical reflection; paper summarizes only</td></tr>
+                <tr><td>Engagement with Sources (2 marks)</td><td>At least one source beyond the textbook is cited and meaningfully integrated</td><td>A source is present but not meaningfully engaged with, or citation is incomplete</td><td>No sources beyond the textbook, or citations are absent</td></tr>
+              </tbody>
+            </table>
+            <div class="rubric-total">Total: 10 marks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MIDTERM -->
+      <div class="assess-card">
+        <div class="assess-header">
+          <div class="assess-title-group">
+            <div class="assess-name">Midterm Exam</div>
+            <div class="assess-meta">In class · Covers Chapters 1–5 · see syllabus for date</div>
+          </div>
+          <div class="assess-weight">25%</div>
+        </div>
+        <div class="assess-body">
+          <p>Multiple choice and short answer questions based on prescribed textbook readings and lectures from Weeks 1–4 (Chapters 1–5: Introduction, Personality, Motivation, Stress &amp; Coping, Anxiety). All information presented in class and in the textbook is testable.</p>
+          <p>Following the midterm, the regular lecture will continue (3:00–5:00 PM).</p>
+          <div class="policy-note">If you miss the midterm due to a documented medical issue or personal emergency, the 25% weighting will be transferred to the final exam. Contact the instructor as soon as possible.</div>
+        </div>
+      </div>
+
+      <!-- CASE STUDY EXAM -->
+      <div class="assess-card">
+        <div class="assess-header">
+          <div class="assess-title-group">
+            <div class="assess-name">Case Study Exam</div>
+            <div class="assess-meta">In class · Written, in-person · 75 minutes · see syllabus for date</div>
+          </div>
+          <div class="assess-weight">20%</div>
+        </div>
+        <div class="assess-body">
+          <p>You will choose <strong>one</strong> of three provided case studies and write an analytical response demonstrating your ability to apply course theory to a real physical activity context. You will have one week to read, think about, and sit with the cases — your response should reflect genuine analytical engagement, not a summary of the case.</p>
+          <p><strong>No materials permitted</strong> (notes, readings, or textbook). Write clearly and in your own voice — you are assessed on the quality of your thinking, not grammar or academic language.</p>
+          <p><strong>Each response must:</strong></p>
+          <ul>
+            <li>Identify and explain the relevant theoretical framework in your own words</li>
+            <li>Apply that framework specifically to the person and situation described</li>
+            <li>Address the specific prompts at the end of your chosen case</li>
+          </ul>
+          <p style="margin-top:0.75rem; font-size:0.85rem; color:var(--text-light);">Note: The case studies engage with themes that may feel personally relevant — including experiences of exclusion in physical activity spaces, sport culture and identity, and how systems respond to people who may not fit neatly into their defaults. If you would prefer an alternative case, contact the instructor no later than one week before the exam.</p>
+          <div class="policy-note">If you miss the case study exam due to a documented medical issue or personal emergency, the 20% weighting will be transferred to the final exam.</div>
+          <button class="rubric-toggle" onclick="toggleRubric(this)">📋 View Rubric <span class="arrow">▾</span></button>
+          <div class="rubric-panel">
+            <table class="rubric-table">
+              <thead><tr><th>Criterion</th><th>Excellent</th><th>Proficient</th><th>Developing</th><th>Limited</th></tr></thead>
+              <tbody>
+                <tr><td>1. Theoretical Understanding (4 marks)</td><td>Framework explained accurately and completely in student's own words; goes beyond naming the theory to show genuine understanding</td><td>Mostly accurate with minor gaps; key components present but not all fully developed</td><td>Basic or partial explanation; some components missing or described vaguely</td><td>Framework not identified, significantly mischaracterized, or not relevant to the case</td></tr>
+                <tr><td>2. Application to the Case (6 marks)</td><td>Applied with specificity and depth; connects specific case details to theoretical concepts; explains not just what is happening but why</td><td>Applied with reasonable accuracy; explains what is happening but may stay closer to description; some relevant details used but not all</td><td>Some attempt to apply theory, but connections are underdeveloped or partially inaccurate</td><td>No meaningful application; case summarized without theory, or framework applied incorrectly</td></tr>
+                <tr><td>3. Processes &amp; Mechanisms (5 marks)</td><td>Underlying processes explained clearly and accurately; shows how and why things unfold; constructs (e.g., appraisal, self-efficacy, arousal) identified and explained with precision</td><td>Mostly explained clearly with minor gaps; mechanisms identified and connected to case, though some explanations may be incomplete</td><td>Attempt made to explain processes, but partial or unclear; mechanisms named without being fully explained or applied</td><td>No meaningful explanation; response describes outcomes without addressing how or why</td></tr>
+                <tr><td>4. Recommendations or Interpretation (3 marks)</td><td>Case A: Two specific, realistic recommendations grounded in analysis and tailored to the person's full context. Cases B &amp; C: Genuine interpretive insight going beyond description</td><td>Case A: Recommendations present but may be general or only partially grounded. Cases B &amp; C: Some interpretive thinking evident but remains surface-level</td><td>Case A: Fewer than two recommendations or vague and not grounded in theory. Cases B &amp; C: Mostly descriptive with little interpretation</td><td>Case A: No recommendations or recommendations that contradict the case. Cases B &amp; C: No interpretive engagement</td></tr>
+                <tr><td>5. Clarity &amp; Use of Evidence (2 marks)</td><td>Clearly organized and easy to follow; arguments supported with specific case details; shows careful, focused thinking</td><td>Mostly clear but may lose focus at points; some case details used but argument could be more tightly supported</td><td>Unclear, disorganized, or difficult to follow; case details rarely used to support claims</td><td>Unclear or unsupported throughout</td></tr>
+              </tbody>
+            </table>
+            <div class="rubric-total">Total: 20 marks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FINAL EXAM -->
+      <div class="assess-card">
+        <div class="assess-header">
+          <div class="assess-title-group">
+            <div class="assess-name">Final Exam</div>
+            <div class="assess-meta">Cumulative · Multiple choice, short answer &amp; case study · see syllabus for date</div>
+          </div>
+          <div class="assess-weight">35%</div>
+        </div>
+        <div class="assess-body">
+          <p>The final exam is cumulative — all information presented in class and in the textbook across the full term is testable. The format includes multiple choice, short answer, and case study questions.</p>
+          <p>The exact date will be confirmed and posted as soon as it is available. Check the syllabus for the exam window and do not make travel plans until the date is confirmed.</p>
+          <div class="policy-note">The final exam may also absorb the weighting of any missed midterm or case study exam (with documented concession). Seminar percentages cannot be re-weighted to the final.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Assessment Policies -->
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--navy); margin: 2.5rem 0 1rem;">Assessment Policies</h3>
+    <div class="policy-cards">
+      <div class="policy-card">
+        <h3>Late Assignments</h3>
+        <p>Late assignments are deducted at <strong>10% per day</strong> (including weekends). Assignments are not accepted after 6 days. Submit all work via Canvas or in person during lecture — not by email, unless otherwise agreed with the instructor.</p>
+      </div>
+      <div class="policy-card">
+        <h3>Academic Concession</h3>
+        <p>Due dates and exams will not be rescheduled except for a medical issue, personal emergency, or academic conflict. If you miss a midterm or case study exam, the weighting transfers to the final exam. Contact the instructor as soon as possible.</p>
+      </div>
+      <div class="policy-card">
+        <h3>Marking Discussions</h3>
+        <p>Contact the TA no sooner than 24 hours and no later than one week after the assignment is returned. If concerns remain, submit a re-grade request to the instructor within one week of speaking with the TA. Re-graded work may receive a higher, lower, or the same mark.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: IMPORTANT DATES -->
+<section id="dates">
+  <div class="section-inner fade-in">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div>
+        <span class="section-eyebrow">Key Deadlines</span>
+        <div class="section-title">Important Dates</div>
+      </div>
+    </div>
+    <p style="font-family:'Source Serif 4',serif;font-size:1.05rem;color:var(--text-mid);line-height:1.85;margin-bottom:1.5rem;">All important dates — including exam dates, assignment due dates, and UBC drop deadlines — are listed in the course syllabus. Please sign in with your UBC account to access it.</p>
+    <a href="https://ubcca-my.sharepoint.com/:w:/r/personal/kayj98_student_ubc_ca/Documents/KIN%20150%20-%20Lecture%20Notes/Syllabus/KIN150_Syllabus_2026_SummerT1.docx?d=we86391ab4c934b638ba27c3e88f5de65&csf=1&web=1&e=KkhReA" target="_blank" style="display:inline-flex;align-items:center;gap:0.6rem;background:var(--navy);color:#fff;font-weight:600;font-size:0.95rem;padding:0.8rem 1.6rem;border-radius:6px;text-decoration:none;">View Course Syllabus (UBC Login Required)</a>
+  </div>
+</section>
+
+<!-- SECTION 5: RESOURCES -->
+<section id="resources">
+  <div class="section-inner fade-in">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div>
+        <span class="section-eyebrow">Materials &amp; Links</span>
+        <div class="section-title">Resources</div>
+      </div>
+    </div>
+
+    <div class="resources-grid">
+      <a class="resource-card" href="https://mlm.pearson.com/enrollment/anderson68328" target="_blank">
+        <span class="resource-icon">📖</span>
+        <h3>Pearson Textbook</h3>
+        <p>Course ID: <strong>anderson68328</strong>. Register to access the required text (~$78 CDN).</p>
+      </a>
+      <a class="resource-card" href="modules.html">
+        <span class="resource-icon">📂</span>
+        <h3>Course Modules</h3>
+        <p>PowerPoint slides and lecture materials organized by week.</p>
+      </a>
+      <a class="resource-card" href="https://kin.educ.ubc.ca/undergraduate/campus-supports-resources/" target="_blank">
+        <span class="resource-icon">🤝</span>
+        <h3>KIN Student Resources</h3>
+        <p>Academic concession, campus supports, and undergraduate resources.</p>
+      </a>
+      <a class="resource-card" href="https://www.purdue.edu/advisors/students/email.php" target="_blank">
+        <span class="resource-icon">✉️</span>
+        <h3>Professional Email Guide</h3>
+        <p>Guidelines for professional email etiquette when contacting instructors.</p>
+      </a>
+      <a class="resource-card" href="https://students.ubc.ca/enrolment/academic-learning-resources/academic-integrity" target="_blank">
+        <span class="resource-icon">⚖️</span>
+        <h3>Academic Integrity</h3>
+        <p>UBC's policies on academic honesty, plagiarism, and AI use.</p>
+      </a>
+    </div>
+
+    <div style="margin-top:2rem; padding:1.2rem 1.6rem; background:var(--accent-bg); border-radius:8px; border-left:3px solid var(--navy-mid);">
+      <p style="font-size:0.88rem; color:var(--text-mid); line-height:1.75;">
+        <strong style="color:var(--navy);">Required Text:</strong> Crocker, P. R. E., Sabiston, C., &amp; McDonough, M. (2025). <em>Sport and exercise psychology: A Canadian perspective</em> (5th ed.). Pearson Education. Additional materials (articles, podcasts, videos) will be shared by the instructor. Lecture slides are posted to the <a href="modules.html" style="color:var(--navy-mid);">Modules page</a> approximately 24 hours before each class — bookmark it!
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong style="color:rgba(255,255,255,0.7);">KIN 150 (921) · Sport and Exercise Psychology</strong></p>
+  <p>University of British Columbia · School of Kinesiology · Summer Term 1, 2026</p>
+  <p style="margin-top:0.75rem;">Questions? Email <a href="mailto:kay.anderson@ubc.ca">kay.anderson@ubc.ca</a> with KIN 150 in the subject line.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  function toggleRubric(btn) {
+    btn.classList.toggle('open');
+    const panel = btn.nextElementSibling;
+    panel.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
