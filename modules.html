@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modules — KIN 150 (921)</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744; --navy-mid: #253560; --gold: #c8973a; --gold-light: #e8b86d;
+    --cream: #faf8f4; --warm-white: #ffffff; --text: #1e1e1e; --text-mid: #444;
+    --text-light: #777; --border: #e2ddd6; --accent-bg: #f2ede6;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Source Sans 3', sans-serif; background: var(--cream); color: var(--text); font-size: 18px; line-height: 1.7; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: var(--navy); border-bottom: 3px solid var(--gold); }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 58px; }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--gold-light); text-decoration: none; }
+  .nav-links { display: flex; gap: 0.15rem; list-style: none; }
+  .nav-links a { display: block; padding: 0.35rem 0.8rem; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.72); text-decoration: none; border-radius: 3px; transition: color 0.2s, background 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold-light); background: rgba(200,151,58,0.12); }
+  .nav-back { color: rgba(255,255,255,0.5) !important; font-size: 0.75rem !important; }
+
+  /* PAGE HEADER */
+  .page-header { background: var(--navy); padding: 3.5rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
+  .page-header::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(200,151,58,0.04) 80px, rgba(200,151,58,0.04) 81px),
+                repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(200,151,58,0.04) 80px, rgba(200,151,58,0.04) 81px);
+  }
+  .page-header-inner { position: relative; max-width: 700px; margin: 0 auto; }
+  .page-label { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(200,151,58,0.4); padding: 0.3rem 1rem; border-radius: 2px; margin-bottom: 1.2rem; }
+  .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 0.5rem; }
+  .page-header p { font-size: 0.95rem; color: rgba(255,255,255,0.55); margin-bottom: 0.4rem; }
+  .page-bookmark-tip { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; font-size: 0.78rem; color: var(--gold-light); background: rgba(200,151,58,0.15); border: 1px solid rgba(200,151,58,0.3); padding: 0.35rem 1rem; border-radius: 100px; letter-spacing: 0.02em; }
+
+  /* MAIN */
+  main { max-width: 900px; margin: 0 auto; padding: 3.5rem 2rem 5rem; }
+
+  /* UPLOAD NOTICE */
+  .upload-notice {
+    background: #fffbf0; border: 1px solid #e8c96d; border-left: 4px solid var(--gold);
+    border-radius: 6px; padding: 1rem 1.4rem; margin-bottom: 2.5rem;
+    font-size: 0.88rem; color: #7a5c00; display: flex; gap: 0.75rem; align-items: flex-start;
+  }
+  .upload-notice strong { color: #5a4000; }
+
+  /* WEEK MODULES */
+  .modules-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .module-card {
+    background: var(--warm-white); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .module-card:hover { box-shadow: 0 4px 20px rgba(26,39,68,0.09); }
+
+  .module-header {
+    display: flex; align-items: center; gap: 1.2rem;
+    padding: 1.3rem 1.6rem; cursor: pointer;
+    background: var(--warm-white); border: none; width: 100%; text-align: left;
+  }
+  .module-week-badge {
+    background: var(--navy); color: var(--gold-light);
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.35rem 0.75rem; border-radius: 4px; white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .module-title-group { flex: 1; }
+  .module-dates { font-size: 0.78rem; color: var(--text-light); margin-bottom: 0.1rem; }
+  .module-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--navy); font-weight: 600; }
+  .module-toggle {
+    color: var(--text-light); font-size: 1.2rem; flex-shrink: 0;
+    transition: transform 0.25s; user-select: none;
+  }
+  .module-card.open .module-toggle { transform: rotate(180deg); }
+
+  .module-body {
+    display: none; padding: 0 1.6rem 1.4rem;
+    border-top: 1px solid var(--border);
+  }
+  .module-card.open .module-body { display: block; }
+
+  .module-topics { margin: 1rem 0 1.2rem; }
+  .module-topic {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.45rem 0; border-bottom: 1px solid var(--border);
+    font-size: 0.9rem; color: var(--text-mid);
+  }
+  .module-topic:last-child { border-bottom: none; }
+  .topic-ch { font-size: 0.72rem; font-weight: 600; color: var(--text-light); background: var(--accent-bg); padding: 0.15rem 0.5rem; border-radius: 3px; white-space: nowrap; }
+
+  .slides-section { margin-top: 1rem; }
+  .slides-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.6rem; }
+
+  .slide-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.65rem 1rem; background: var(--accent-bg);
+    border: 1px solid var(--border); border-radius: 6px;
+    margin-bottom: 0.5rem; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .slide-item:hover { border-color: var(--gold); background: #f7f0e4; }
+  .slide-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .slide-name { flex: 1; font-size: 0.9rem; font-weight: 500; color: var(--navy); }
+  .slide-date { font-size: 0.78rem; color: var(--text-light); }
+  .slide-badge { font-size: 0.68rem; font-weight: 600; background: var(--navy); color: var(--gold-light); padding: 0.15rem 0.5rem; border-radius: 3px; letter-spacing: 0.06em; }
+  .slide-badge.coming { background: var(--border); color: var(--text-light); }
+  .slide-badge.posted { background: #1a6b3a; color: #fff; }
+
+  /* Upload drop zone (placeholder UI) */
+  .upload-zone {
+    border: 2px dashed var(--border); border-radius: 8px;
+    padding: 1.5rem; text-align: center; margin-top: 0.5rem;
+    color: var(--text-light); font-size: 0.85rem; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .upload-zone:hover { border-color: var(--gold); background: #fffcf6; }
+  .upload-zone .uz-icon { font-size: 1.5rem; margin-bottom: 0.4rem; display: block; }
+
+  .tag-assessment {
+    display: inline-block; font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.18rem 0.55rem; border-radius: 3px;
+    background: #fde8e8; color: #c0392b; margin-left: 0.3rem;
+    vertical-align: middle;
+  }
+
+  footer { background: var(--navy); padding: 2rem 2rem; text-align: center; border-top: 3px solid var(--gold); }
+  footer p { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
+  footer a { color: var(--gold-light); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .module-header { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">KIN 150 · Sport &amp; Exercise Psychology</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-back">← Course Home</a></li>
+      <li><a href="#" class="active">Modules</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-label">KIN 150 (921) · Summer T1 2026</div>
+    <h1>Course Modules</h1>
+    <p>Lecture slides organized by week — uploaded here approximately 24 hours before each class.</p>
+    <div class="page-bookmark-tip">🔖 Bookmark this page to stay up to date</div>
+  </div>
+</div>
+
+<main>
+
+  <div class="upload-notice">
+    <span>📌</span>
+    <p><strong>Note for students:</strong> Slides will be uploaded directly to this page approximately 24 hours before each class. Please <strong>bookmark this page</strong> and check back before each session. Slides are hosted on UBC OneDrive — you will be prompted to <strong>sign in with your UBC account</strong> to view them. Slides provide an overview only and do not capture in-class discussions or activities — you are encouraged to take additional notes.</p>
+  </div>
+
+  <a href="https://ubcca-my.sharepoint.com/:f:/g/personal/kayj98_student_ubc_ca/IgCZHydJ36tSRrNVjQQeiARBAfKINcZP0Jorlg01VvkAsGY?e=RDWt4M" target="_blank" style="display:flex; align-items:center; gap:1rem; background:var(--navy); color:#fff; border-radius:8px; padding:1.1rem 1.6rem; text-decoration:none; margin-bottom:2rem; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+    <span style="font-size:1.5rem;">📁</span>
+    <div>
+      <div style="font-weight:600; font-size:0.97rem;">All Lecture Notes — UBC OneDrive Folder</div>
+      <div style="font-size:0.82rem; color:rgba(255,255,255,0.6); margin-top:0.15rem;">Sign in with your UBC account to browse all posted slides in one place</div>
+    </div>
+    <span style="margin-left:auto; font-size:0.8rem; color:var(--gold-light); font-weight:600; white-space:nowrap;">Open folder →</span>
+  </a>
+
+  <div class="modules-list">
+
+    <!-- WEEK 1 -->
+    <div class="module-card open" id="week1">
+      <button class="module-header" onclick="toggleModule(this)">
+        <span class="module-week-badge">Week 1</span>
+        <div class="module-title-group">
+          <div class="module-dates">Week 1</div>
+          <div class="module-title">Introduction &amp; Personality in Sport</div>
+        </div>
+        <span class="module-toggle">▾</span>
+      </button>
+      <div class="module-body">
+        <div class="module-topics">
+          <div class="module-topic"><span class="topic-ch">Ch. 1</span> Introduction to Sport and Exercise Psychology</div>
+          <div class="module-topic"><span class="topic-ch">Ch. 2</span> Personality in Sport and Exercise</div>
+        </div>
+        <div class="slides-section">
+          <div class="slides-label">Lecture Slides</div>
+          <a class="slide-item" href="https://ubcca-my.sharepoint.com/:p:/g/personal/kayj98_student_ubc_ca/IQALR85SqcZMTbVrp9tPCQVeAQKLJKWcLRIqXPZBN9d9iV0?e=l8wyek" target="_blank">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Lecture 1 — Syllabus + Introduction to Sport and Exercise Psychology</span>
+            <span class="slide-badge posted">Posted</span>
+          </a>
+          <a class="slide-item" href="#" onclick="return false;">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Lecture 2 — Personality in Sport and Exercise</span>
+            <span class="slide-badge coming">Coming Soon</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 2 -->
+    <div class="module-card" id="week2">
+      <button class="module-header" onclick="toggleModule(this)">
+        <span class="module-week-badge">Week 2</span>
+        <div class="module-title-group">
+          <div class="module-dates">Week 2</div>
+          <div class="module-title">Motivation &amp; Behavioural Change <span class="tag-assessment">Seminar #1</span></div>
+        </div>
+        <span class="module-toggle">▾</span>
+      </button>
+      <div class="module-body">
+        <div class="module-topics">
+          <div class="module-topic"><span class="topic-ch">Ch. 3</span> Motivation and Behavioural Change, Part 1</div>
+          <div class="module-topic"><span class="topic-ch">Ch. 3</span> Motivation and Behavioural Change, Part 2 ★ Seminar #1</div>
+        </div>
+        <div class="slides-section">
+          <div class="slides-label">Lecture Slides</div>
+          <a class="slide-item" href="#" onclick="return false;">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Week 2A — Motivation &amp; Behavioural Change Pt. 1</span>
+            <span class="slide-badge coming">Coming Soon</span>
+          </a>
+          <a class="slide-item" href="#" onclick="return false;">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Week 2B — Motivation &amp; Behavioural Change Pt. 2 + Seminar</span>
+            <span class="slide-badge coming">Coming Soon</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <div class="module-card" id="week3">
+      <button class="module-header" onclick="toggleModule(this)">
+        <span class="module-week-badge">Week 3</span>
+        <div class="module-title-group">
+          <div class="module-dates">Week 3</div>
+          <div class="module-title">Stress, Emotion &amp; Anxiety</div>
+        </div>
+        <span class="module-toggle">▾</span>
+      </button>
+      <div class="module-body">
+        <div class="module-topics">
+          <div class="module-topic"><span class="topic-ch">Ch. 4</span> Stress, Emotion, and Coping in Sport and Exercise</div>
+          <div class="module-topic"><span class="topic-ch">Ch. 5</span> Anxiety in Sport and Exercise</div>
+        </div>
+        <div class="slides-section">
+          <div class="slides-label">Lecture Slides</div>
+          <a class="slide-item" href="#" onclick="return false;">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Week 3A — Stress, Emotion &amp; Coping</span>
+            <span class="slide-badge coming">Coming Soon</span>
+          </a>
+          <a class="slide-item" href="#" onclick="return false;">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Week 3B — Anxiety in Sport &amp; Exercise</span>
+            <span class="slide-badge coming">Coming Soon</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <div class="module-card" id="week4">
+      <button class="module-header" onclick="toggleModule(this)">
+        <span class="module-week-badge">Week 4</span>
+        <div class="module-title-group">
+          <div class="module-dates">Week 4</div>
+          <div class="module-title">Youth &amp; Aging in Sport <span class="tag-assessment">Midterm</span></div>
+        </div>
+        <span class="module-toggle">▾</span>
+      </button>
+      <div class="module-body">
+        <div class="module-topics">
+          <div class="module-topic"><span class="topic-ch">Ch. 10</span> Youth Involvement in Sport and Physical Activity ★ Midterm (see syllabus for date)</div>
+          <div class="module-topic"><span class="topic-ch">Ch. 12</span> Aging and Involvement in Sport and Physical Activity</div>
+        </div>
+        <div class="slides-section">
+          <div class="slides-label">Lecture Slides</div>
+          <a class="slide-item" href="#" onclick="return false;">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Week 4A — Youth Involvement in Sport</span>
+            <span class="slide-badge coming">Coming Soon</span>
+          </a>
+          <a class="slide-item" href="#" onclick="return false;">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Week 4B — Aging &amp; Physical Activity</span>
+            <span class="slide-badge coming">Coming Soon</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 5 -->
+    <div class="module-card" id="week5">
+      <button class="module-header" onclick="toggleModule(this)">
+        <span class="module-week-badge">Week 5</span>
+        <div class="module-title-group">
+          <div class="module-dates">Week 5</div>
+          <div class="module-title">Body Image &amp; Interventions <span class="tag-assessment">Seminar #2</span></div>
+        </div>
+        <span class="module-toggle">▾</span>
+      </button>
+      <div class="module-body">
+        <div class="module-topics">
+          <div class="module-topic"><span class="topic-ch">Ch. 14</span> Body Image in Sport and Exercise ★ Seminar #2</div>
+          <div class="module-topic"><span class="topic-ch">Ch. 7</span> Sport Psychology Interventions</div>
+        </div>
+        <div class="slides-section">
+          <div class="slides-label">Lecture Slides</div>
+          <a class="slide-item" href="#" onclick="return false;">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Week 5A — Body Image in Sport &amp; Exercise</span>
+            <span class="slide-badge coming">Coming Soon</span>
+          </a>
+          <a class="slide-item" href="#" onclick="return false;">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Week 5B — Sport Psychology Interventions</span>
+            <span class="slide-badge coming">Coming Soon</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 6 -->
+    <div class="module-card" id="week6">
+      <button class="module-header" onclick="toggleModule(this)">
+        <span class="module-week-badge">Week 6</span>
+        <div class="module-title-group">
+          <div class="module-dates">Week 6</div>
+          <div class="module-title">Physical Activity Interventions &amp; Review <span class="tag-assessment">Case Study Exam</span></div>
+        </div>
+        <span class="module-toggle">▾</span>
+      </button>
+      <div class="module-body">
+        <div class="module-topics">
+          <div class="module-topic"><span class="topic-ch">Ch. 15</span> Physical Activity Interventions ★ Case Study Exam (see syllabus for date)</div>
+          <div class="module-topic"><span class="topic-ch">—</span> Review &amp; Wrap-Up</div>
+        </div>
+        <div class="slides-section">
+          <div class="slides-label">Lecture Slides</div>
+          <a class="slide-item" href="#" onclick="return false;">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Week 6A — Physical Activity Interventions</span>
+            <span class="slide-badge coming">Coming Soon</span>
+          </a>
+          <a class="slide-item" href="#" onclick="return false;">
+            <span class="slide-icon">📊</span>
+            <span class="slide-name">Week 6B — Review &amp; Final Exam Prep</span>
+            <span class="slide-badge coming">Coming Soon</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /modules-list -->
+
+
+</main>
+
+<footer>
+  <p><a href="index.html">← Back to KIN 150 Course Home</a></p>
+  <p style="margin-top:0.5rem;">KIN 150 (921) · University of British Columbia · Summer T1, 2026</p>
+</footer>
+
+<script>
+  function toggleModule(btn) {
+    const card = btn.closest('.module-card');
+    card.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
